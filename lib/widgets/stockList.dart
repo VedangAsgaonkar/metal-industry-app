@@ -93,6 +93,23 @@ class _StockListState extends State<StockList>{
             ),
           ],
         ),
+        SizedBox(
+          height: 5.0,
+        ),
+        Row(
+          children: <Widget>[
+            Text("Last Update",
+              style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 15.0,
+        ),
         Expanded(
           flex:1,
           child: ListView.separated(
@@ -185,7 +202,7 @@ class _StockListState extends State<StockList>{
       GestureDetector(
         onTap:(){
           stockName = stock.metal;
-          Scaffold.of(context).openDrawer();
+          Scaffold.of(context).openEndDrawer();
         },
         child: Container(
           width: double.infinity,

@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: ClipRRect(
-          borderRadius:BorderRadius.only(topRight: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
+        endDrawer: ClipRRect(
+          borderRadius:BorderRadius.all(Radius.circular(30.0)),
           child: Container(
             width: 350.0,
             child: Drawer(
@@ -76,30 +76,15 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.grey[500],
                               fontSize: 30,
                               fontWeight: FontWeight.bold)),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0,bottom:8.0),
-                        child: SizedBox(
-                          height: 50,
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintStyle: TextStyle(color: Colors.grey[500]),
-                                hintText: "Search",
-                                prefix: Icon(Icons.search),
-                                fillColor: Colors.grey[800],
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 0, style: BorderStyle.none),
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(16))),
-                                filled: true),
-                          ),
-                        ),
+                      SizedBox(
+                        height: 40.0,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height - 310,
                         child: StockList(),
-                      )
-                    ]),
+                      ),
+                    ],
+                ),
               ),
             ),
             Positioned(
@@ -125,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       });
                     },
                   ),
-                ))
+                )),
           ],
         ));
   }
