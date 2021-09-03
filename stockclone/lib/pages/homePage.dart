@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double _offsetY = 100;
   ExpandedState _expandedState = ExpandedState.compact;
+  String stockName = "";
 
   double _calculateOffset(delta, context) {
 
@@ -27,7 +28,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+        drawer: ClipRRect(
+          borderRadius:BorderRadius.only(topRight: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
+          child: Container(
+            width: 350.0,
+            child: Drawer(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        stockName,
+                        style : TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         body: Stack(
           children: <Widget>[
             Container(
@@ -69,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height - 310,
-                        child: StockList(stocks: Stock.getAll()),
+                        child: StockList(stocks: Stock.getAll(), stockName: stockName,),
                       )
                     ]),
               ),
