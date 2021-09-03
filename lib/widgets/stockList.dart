@@ -9,10 +9,8 @@ class StockList extends StatefulWidget {
 class _StockListState extends State<StockList>{
 
   List<Stock> stocks=Stock.getAll();
-  List<String> type=<String>["Local (Shaizi)","Local (CC)"];
-  int co=0;
-  String display="Local (Shaizi)";
   String stockName="";
+  List<bool> isSelected=<bool>[true,false];
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +33,44 @@ class _StockListState extends State<StockList>{
               child: SizedBox(),
             ),
             Expanded(
-              flex: 6,
-              child: TextButton(
-                child:Text(display,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+              flex: 8,
+              child: ToggleButtons(
+                children: <Widget>[
+                  Text("Shaizi",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                onPressed: ()=>setState((){
-                  co=1-co;
-                  display=type[co];
-                  for (Stock stock in stocks){
-                    stock.priceChange(co);
-                  }
-                }),
+                  Text("CC",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+                onPressed: (int index) {
+                  setState(() {
+                    for (Stock stock in stocks) {
+                      stock.priceChange(index);
+                    }
+                    for (int buttonIndex = 0; buttonIndex <
+                        isSelected.length; buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isSelected[buttonIndex] = true;
+                      } else {
+                        isSelected[buttonIndex] = false;
+                      }
+                    }
+                  });
+                },
+                isSelected: isSelected,
+                fillColor: Colors.grey[900],
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
             Expanded(
@@ -107,7 +126,7 @@ class _StockListState extends State<StockList>{
                       ),
                     ),
                     Expanded(
-                      flex:2,
+                      flex:1,
                       child: SizedBox(),
                     ),
                     Expanded(
