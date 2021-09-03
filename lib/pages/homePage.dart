@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
 
   double _calculateOffset(delta, context) {
 
-    final maxHeight = MediaQuery.of(context).size.height - 100;
+    final maxHeight = MediaQuery.of(context).size.height -100;
     final newOffset = _offsetY + (delta) * (-1);
     if (newOffset <= 100) {
       return 100;
