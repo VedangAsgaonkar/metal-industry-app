@@ -30,25 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          child: Container(
-            width: 150.0,
-            child: Drawer(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[800],
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                ),
-              ),
-            ),
-          ),
-        ),
+        drawer: LeftMenu(),
         endDrawer: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(30.0)),
           child: Container(
@@ -56,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             child: Drawer(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey[800],
+                  color: Colors.black87,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0)),
@@ -153,17 +135,146 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class MenuButton extends StatelessWidget {
-  const MenuButton({
-    Key? key,
-  }) : super(key: key);
+class LeftMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+      child: Container(
+        width: 200.0,
+        child: Drawer(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black87,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0)),
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 30.0, horizontal: 1.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.more_vert,
+                        color: Colors.white,
+                        size: 40.0,
+                      ),
+                    ),
+                    title: Text(
+                      'Menu',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  LeftMenuTile(
+                    icon: Icon(
+                      IconData(0xe491, fontFamily: 'MaterialIcons'),
+                      color: Colors.white,
+                    ),
+                    title: 'My Profile',
+                    onTap: () {},
+                  ),
+                  LeftMenuTile(
+                    icon: Icon(
+                        Icons.people,
+                        color: Colors.white,
+                    ),
+                    title: 'Explore',
+                    onTap: () {},
+                  ),
+                  LeftMenuTile(
+                    icon: Icon(
+                      Icons.phone_in_talk,
+                      color: Colors.white,
+                    ),
+                    title: 'Consult',
+                    onTap: () {},
+                  ),
+                  LeftMenuTile(
+                    icon: Icon(
+                        IconData(0xe11b, fontFamily: 'MaterialIcons'),
+                        color: Colors.white,
+                    ),
+                    title: 'About us',
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.logout,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      'Logout',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
+class LeftMenuTile extends StatelessWidget {
+  const LeftMenuTile({
+    required this.onTap,
+    required this.icon,
+    required this.title,
+  });
+
+  final void Function()? onTap;
+  final Icon icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+          ),
+          child: ListTile(
+            leading: icon,
+            title: Text(
+              title,
+              style: TextStyle(
+                color: Colors.grey[300],
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Scaffold.of(context).openDrawer();
-        print('Hemlo');
       },
       child: Icon(
         Icons.more_horiz,
