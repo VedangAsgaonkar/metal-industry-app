@@ -152,7 +152,7 @@ class _StockListState extends State<StockList> {
                     children: <Widget>[
                       Column(
                         children:
-                            _buildExpandableContent(stock, context, stockName),
+                            _buildExpandableContent(stock, context, widget.setStock),
                       )
                     ],
                     title: Row(
@@ -235,12 +235,12 @@ class _StockListState extends State<StockList> {
     );
   }
 
-  _buildExpandableContent(Stock stock, BuildContext context, String stockName) {
+  _buildExpandableContent(Stock stock, BuildContext context, void Function(String)? setStock) {
     List<Widget> widgets = <Widget>[];
     widgets.add(
       GestureDetector(
         onTap: () {
-          stockName = stock.metal;
+          setStock!(stock.metal);
           Scaffold.of(context).openEndDrawer();
         },
         child: Container(
