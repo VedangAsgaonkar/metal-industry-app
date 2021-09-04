@@ -1,1 +1,5 @@
 build/
+android/
+.gitignore
+.idea/
+ios/
