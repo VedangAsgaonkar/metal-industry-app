@@ -5,7 +5,8 @@ import 'package:stockclone/models/stock.dart';
 class StockList extends StatefulWidget {
   String? location;
   final List<Stock> stocks = Stock.getAll();
-  StockList(this.location) {
+  void Function(String)? setStock ;
+  StockList(this.location,this.setStock) {
     for (Stock stock in stocks) {
       stock.priceChangeLocation(this.location);
     }
@@ -187,7 +188,7 @@ class _StockListState extends State<StockList> {
                     children: <Widget>[
                       Column(
                         children:
-                            _buildExpandableContent(stock, context, stockName),
+                            _buildExpandableContent(stock, context, widget.setStock),
                       )
                     ],
                     title: Row(
@@ -270,12 +271,12 @@ class _StockListState extends State<StockList> {
     );
   }
 
-  _buildExpandableContent(Stock stock, BuildContext context, String stockName) {
+  _buildExpandableContent(Stock stock, BuildContext context, void Function(String)? setStock) {
     List<Widget> widgets = <Widget>[];
     widgets.add(
       GestureDetector(
         onTap: () {
-          stockName = stock.metal;
+          setStock!(stock.metal);
           Scaffold.of(context).openEndDrawer();
         },
         child: Container(

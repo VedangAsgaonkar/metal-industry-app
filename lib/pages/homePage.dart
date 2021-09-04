@@ -3,6 +3,39 @@ import 'package:stockclone/models/stock.dart';
 import 'package:stockclone/widgets/newsList.dart';
 import 'package:stockclone/widgets/stockList.dart';
 import 'dart:core';
+import 'package:fl_chart/fl_chart.dart';
+
+List<FlSpot> getDataFlList(List<double> x, List<double> y) {
+  List<FlSpot> outlist = [];
+  for (int i = 0; i < x.length; i++) {
+    outlist.add(FlSpot(x[i], y[i]));
+  }
+  return outlist;
+}
+
+bool isIncreasingTrend(List<double> y) {
+  if (y[y.length - 1] > y[y.length - 2]) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+List<Color> graphColors(List<double> y) {
+  if (isIncreasingTrend(y)) {
+    return [Colors.lightBlue.withOpacity(0.5), Colors.green.withOpacity(0.5)];
+  } else {
+    return [Colors.orange.withOpacity(0.5), Colors.red.withOpacity(0.5)];
+  }
+}
+
+List<Color> lineColors(List<double> y) {
+  if (isIncreasingTrend(y)) {
+    return [Colors.green];
+  } else {
+    return [Colors.red];
+  }
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +45,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double _offsetY = 100;
   ExpandedState _expandedState = ExpandedState.compact;
-
+  String stockName = "";
+  List<FlSpot> outlist = getDataFlList([0, 1, 2, 3, 4, 5], [1, 2, 3, 7, 3, 1]);
+  List<Color> graph_colors = graphColors([1, 2, 3, 7, 3, 1]);
+  List<Color> linecolor = lineColors([1, 2, 3, 7, 3, 1]);
   double _calculateOffset(delta, context) {
     final maxHeight = MediaQuery.of(context).size.height - 100;
     final newOffset = _offsetY + (delta) * (-1);
@@ -25,7 +61,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  String stockName = "";
   List<String> locations = <String>['North', 'South', 'East', 'West'];
   String? currentLocation = 'North';
 
@@ -46,9 +81,11 @@ class _HomePageState extends State<HomePage> {
                       bottomRight: Radius.circular(20.0)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 40.0, horizontal: 5.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
                         stockName,
@@ -56,6 +93,28 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.w500),
+                      ),
+                      Container(
+                        height: 250.0,
+                        child: Expanded(
+                          child: LineChart(
+                            LineChartData(
+                              lineBarsData: [
+                                LineChartBarData(
+                                  spots: outlist,
+                                  colors: linecolor,
+                                  belowBarData: BarAreaData(
+                                    show: true,
+                                    colors: graph_colors,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200.0,
                       ),
                     ],
                   ),
@@ -125,7 +184,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height - 310,
-                      child: StockList(currentLocation),
+                      child: StockList(
+                        currentLocation,
+                        (stock) {
+                          setState(() {
+                            stockName = stock;
+                          });
+                        },
+                      ),
                     ),
                   ],
                 ),
