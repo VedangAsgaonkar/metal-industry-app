@@ -26,6 +26,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   String stockName = "";
+  List<String> locations = <String>['North', 'South', 'East', 'West'];
+  String? currentLocation = 'North';
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +86,30 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           width: 40.0,
                         ),
+                        Container(
+                          color: Colors.black,
+                          child: DropdownButton(
+                            items: locations.map((location) {
+                              return DropdownMenuItem(
+                                value: location,
+                                child: Text(
+                                  location,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              );
+                            }).toList(),
+                            value: currentLocation,
+                            onChanged: (String? newLocation) {
+                              setState(() {
+                                currentLocation = newLocation;
+                              });
+                            },
+                            dropdownColor: Colors.black,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -99,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height - 310,
-                      child: StockList(),
+                      child: StockList(currentLocation),
                     ),
                   ],
                 ),
@@ -185,8 +211,8 @@ class LeftMenu extends StatelessWidget {
                   ),
                   LeftMenuTile(
                     icon: Icon(
-                        Icons.people,
-                        color: Colors.white,
+                      Icons.people,
+                      color: Colors.white,
                     ),
                     title: 'Explore',
                     onTap: () {},
@@ -201,8 +227,8 @@ class LeftMenu extends StatelessWidget {
                   ),
                   LeftMenuTile(
                     icon: Icon(
-                        IconData(0xe11b, fontFamily: 'MaterialIcons'),
-                        color: Colors.white,
+                      IconData(0xe11b, fontFamily: 'MaterialIcons'),
+                      color: Colors.white,
                     ),
                     title: 'About us',
                     onTap: () {},

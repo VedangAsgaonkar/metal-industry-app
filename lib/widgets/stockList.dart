@@ -3,19 +3,87 @@ import 'package:flutter/material.dart';
 import 'package:stockclone/models/stock.dart';
 
 class StockList extends StatefulWidget {
+  String? location;
+  final List<Stock> stocks = Stock.getAll();
+  StockList(this.location) {
+    for (Stock stock in stocks) {
+      stock.priceChangeLocation(this.location);
+    }
+  }
   @override
   _StockListState createState() => _StockListState();
 }
 
 class _StockListState extends State<StockList> {
-  List<Stock> stocks = Stock.getAll();
   String stockName = "";
-  List<bool> isSelected = <bool>[true, false];
   int? controlLocal = 0;
   int? controlMain = 0;
 
+  Widget changeTitle() {
+    if (this.widget.location == 'North') {
+      return CupertinoSlidingSegmentedControl(
+        children: <int, Widget>{
+          0: Text(
+            "Shaizi",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey[500],
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          1: Text(
+            "CC",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey[500],
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        },
+        onValueChanged: (int? i) {
+          setState(() {
+            controlLocal = i;
+            for (Stock stock in this.widget.stocks) {
+              stock.priceChangeLocal(controlLocal);
+            }
+          });
+        },
+        groupValue: controlLocal,
+        //isSelected: isSelected,
+        //fillColor: Colors.grey[900],
+        //borderRadius: BorderRadius.circular(10),
+      );
+    } else if (this.widget.location == 'West') {
+      return Text(
+        "Local (CC)",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.grey[500],
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else {
+      return Text(
+        "Local",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.grey[500],
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    /*for (Stock stock in stocks) {
+      stock.priceChangeLocation(this.widget.location);
+    }*/
+
     return Column(
       children: <Widget>[
         Row(
@@ -36,40 +104,7 @@ class _StockListState extends State<StockList> {
             ),
             Expanded(
               flex: 8,
-              child: CupertinoSlidingSegmentedControl(
-                children: <int, Widget>{
-                  0: Text(
-                    "Shaizi",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  1: Text(
-                    "CC",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                },
-                onValueChanged: (int? i) {
-                  setState(() {
-                    controlLocal = i;
-                    for (Stock stock in stocks) {
-                      stock.priceChangeLocal(controlLocal);
-                    }
-                  });
-                },
-                groupValue: controlLocal,
-                //isSelected: isSelected,
-                //fillColor: Colors.grey[900],
-                //borderRadius: BorderRadius.circular(10),
-              ),
+              child: changeTitle(),
             ),
             Expanded(flex: 2, child: SizedBox(width: 30)),
             Expanded(
@@ -98,7 +133,7 @@ class _StockListState extends State<StockList> {
                 onValueChanged: (int? i) {
                   setState(() {
                     controlMain = i;
-                    for (Stock stock in stocks) {
+                    for (Stock stock in this.widget.stocks) {
                       stock.priceChangeMain(controlMain);
                     }
                   });
@@ -142,9 +177,9 @@ class _StockListState extends State<StockList> {
               separatorBuilder: (context, index) {
                 return Divider(color: Colors.grey[400]);
               },
-              itemCount: this.stocks.length,
+              itemCount: this.widget.stocks.length,
               itemBuilder: (context, index) {
-                Stock stock = this.stocks[index];
+                Stock stock = this.widget.stocks[index];
 
                 return ListTileTheme(
                   contentPadding: EdgeInsets.all(0),
