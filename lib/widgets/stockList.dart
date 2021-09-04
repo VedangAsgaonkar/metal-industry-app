@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:stockclone/models/stock.dart';
 
 class StockList extends StatefulWidget {
-  @override
+  final void Function(String)? setStock ;
+  StockList({@required this.setStock});
   _StockListState createState() => _StockListState();
 }
 class _StockListState extends State<StockList>{
 
   List<Stock> stocks=Stock.getAll();
-  String stockName="";
   List<bool> isSelected=<bool>[true,false];
 
   @override
@@ -127,7 +127,7 @@ class _StockListState extends State<StockList>{
               return ExpansionTile(
                 children: <Widget>[
                   Column(
-                    children: _buildExpandableContent(stock,context,stockName),
+                    children: _buildExpandableContent(stock,context,widget.setStock),
                   )
                 ],
                 title: Row(
@@ -195,13 +195,13 @@ class _StockListState extends State<StockList>{
     ],
     );
   }
-  _buildExpandableContent(Stock stock, BuildContext context, String stockName)
+  _buildExpandableContent(Stock stock, BuildContext context, void Function(String)? setStock)
   {
     List<Widget> widgets= <Widget>[];
     widgets.add(
       GestureDetector(
-        onTap:(){
-          stockName = stock.metal;
+        onTap: (){
+          setStock!(stock.metal);
           Scaffold.of(context).openEndDrawer();
         },
         child: Container(
