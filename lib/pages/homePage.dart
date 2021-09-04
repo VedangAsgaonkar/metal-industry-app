@@ -4,6 +4,7 @@ import 'package:stockclone/widgets/newsList.dart';
 import 'package:stockclone/widgets/stockList.dart';
 import 'dart:core';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 
 List<FlSpot> getDataFlList(List<double> x, List<double> y) {
   List<FlSpot> outlist = [];
@@ -46,9 +47,9 @@ class _HomePageState extends State<HomePage> {
   double _offsetY = 100;
   ExpandedState _expandedState = ExpandedState.compact;
   String stockName = "";
-  List<FlSpot> outlist = getDataFlList([0, 1, 2, 3, 4, 5], [1, 2, 3, 7, 3, 1]);
-  List<Color> graph_colors = graphColors([1, 2, 3, 7, 3, 1]);
-  List<Color> linecolor = lineColors([1, 2, 3, 7, 3, 1]);
+  List<double> x = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  List<double> y = [3,1,5,6,5,3,2,5,8,10,13,14,16,24,12,11,10,18,19,20];
+  int num_disp = 20;
   double _calculateOffset(delta, context) {
     final maxHeight = MediaQuery.of(context).size.height - 100;
     final newOffset = _offsetY + (delta) * (-1);
@@ -101,17 +102,57 @@ class _HomePageState extends State<HomePage> {
                             LineChartData(
                               lineBarsData: [
                                 LineChartBarData(
-                                  spots: outlist,
-                                  colors: linecolor,
+                                  dotData: FlDotData(
+                                    show: false,
+                                  ),
+                                  spots: getDataFlList(x.sublist(x.length-num_disp), y.sublist(y.length -num_disp)),
+                                  colors: lineColors(y.sublist(y.length -num_disp)),
                                   belowBarData: BarAreaData(
                                     show: true,
-                                    colors: graph_colors,
+                                    colors: graphColors(y.sublist(y.length -num_disp)),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
+                      ),
+                      CupertinoSlidingSegmentedControl<int>(
+                        children: <int,Widget>{
+                          5: Text(
+                            '5',
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 22.0
+                            ),
+                          ),
+                          10: Text(
+                            '10',
+                            style: TextStyle(
+                                color: Colors.grey[300],
+                                fontSize: 22.0
+                            ),
+                          ),
+                          15: Text(
+                            '15',
+                            style: TextStyle(
+                                color: Colors.grey[300],
+                                fontSize: 22.0
+                            ),
+                          ),
+                          20: Text(
+                            '20',
+                            style: TextStyle(
+                                color: Colors.grey[300],
+                                fontSize: 22.0
+                            ),
+                          ),
+                        },
+                        onValueChanged: (value){
+                          setState(() {
+                            num_disp = value!;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 200.0,
