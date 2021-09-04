@@ -147,26 +147,29 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           color: Colors.black,
-                          child: DropdownButton(
-                            items: locations.map((location) {
-                              return DropdownMenuItem(
-                                value: location,
-                                child: Text(
-                                  location,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              );
-                            }).toList(),
-                            value: currentLocation,
-                            onChanged: (String? newLocation) {
-                              setState(() {
-                                currentLocation = newLocation;
-                              });
-                            },
-                            dropdownColor: Colors.black,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                            child: DropdownButton(
+                              items: locations.map((location) {
+                                return DropdownMenuItem(
+                                  value: location,
+                                  child: Text(
+                                    location,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                );
+                              }).toList(),
+                              value: currentLocation,
+                              onChanged: (String? newLocation) {
+                                setState(() {
+                                  currentLocation = newLocation;
+                                });
+                              },
+                              dropdownColor: Colors.grey[800],
+                            ),
                           ),
                         ),
                       ],
