@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   List<String> locations = <String>['North', 'South', 'East', 'West'];
   String? currentLocation = 'North';
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +101,11 @@ class _HomePageState extends State<HomePage> {
                         child: Expanded(
                           child: LineChart(
                             LineChartData(
+                              borderData: FlBorderData(
+                                border: Border.all(
+                                  color: Colors.grey[300]!,
+                                )
+                              ),
                               lineBarsData: [
                                 LineChartBarData(
                                   dotData: FlDotData(
@@ -118,32 +124,33 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       CupertinoSlidingSegmentedControl<int>(
+                        thumbColor: Colors.white,
                         children: <int,Widget>{
                           5: Text(
                             '5',
                             style: TextStyle(
-                              color: Colors.grey[300],
+                              color: Colors.grey[600],
                               fontSize: 22.0
                             ),
                           ),
                           10: Text(
                             '10',
                             style: TextStyle(
-                                color: Colors.grey[300],
+                                color: Colors.grey[600],
                                 fontSize: 22.0
                             ),
                           ),
                           15: Text(
                             '15',
                             style: TextStyle(
-                                color: Colors.grey[300],
+                                color: Colors.grey[600],
                                 fontSize: 22.0
                             ),
                           ),
                           20: Text(
                             '20',
                             style: TextStyle(
-                                color: Colors.grey[300],
+                                color: Colors.grey[600],
                                 fontSize: 22.0
                             ),
                           ),
@@ -153,6 +160,7 @@ class _HomePageState extends State<HomePage> {
                             num_disp = value!;
                           });
                         },
+                        groupValue: num_disp,
                       ),
                       SizedBox(
                         height: 200.0,
