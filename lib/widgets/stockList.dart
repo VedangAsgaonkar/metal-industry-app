@@ -5,7 +5,7 @@ import 'package:stockclone/models/stock.dart';
 class StockList extends StatefulWidget {
   String? location;
   final List<Stock> stocks = Stock.getAll();
-  void Function(String)? setStock ;
+  void Function(Stock)? setStock ;
   StockList(this.location,this.setStock) {
     for (Stock stock in stocks) {
       stock.priceChangeLocation(this.location);
@@ -185,7 +185,6 @@ class _StockListState extends State<StockList> {
               itemCount: this.widget.stocks.length,
               itemBuilder: (context, index) {
                 Stock stock = this.widget.stocks[index];
-
                 return ListTileTheme(
                   contentPadding: EdgeInsets.all(0),
                   child: ExpansionTile(
@@ -232,10 +231,10 @@ class _StockListState extends State<StockList> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Colors.red),
+                                      color:stock.metal.compareTo("Pb") == 0 ?  Colors.greenAccent[400]: Colors.red,),
                                   width: 75,
                                   height: 25,
-                                  child: Text("-1.09%",
+                                  child: Text( stock.metal.compareTo("Pb") == 0 ? "+2.50%" :"-1.09%",
                                       style: TextStyle(color: Colors.white)))
                             ],
                           ),
@@ -257,10 +256,10 @@ class _StockListState extends State<StockList> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Colors.red),
+                                      color: stock.metal.compareTo("Pb") == 0 ? Colors.greenAccent[400] : Colors.red,),
                                   width: 75,
                                   height: 25,
-                                  child: Text("-1.09%",
+                                  child: Text( stock.metal.compareTo("Pb") == 0 ? "+2.50%" :"-1.09%",
                                       style: TextStyle(color: Colors.white)))
                             ],
                           ),
@@ -275,7 +274,7 @@ class _StockListState extends State<StockList> {
     );
   }
 
-  _buildExpandableContent(Stock stock, BuildContext context, void Function(String)? setStock) {
+  _buildExpandableContent(Stock stock, BuildContext context, void Function(Stock)? setStock) {
     List<Widget> widgets = <Widget>[];
     widgets.add(
       Container(
@@ -301,7 +300,7 @@ class _StockListState extends State<StockList> {
                         fontWeight: FontWeight.w500)),
                 GestureDetector(
                   onTap: () {
-                    setStock!(stock.metal);
+                    setStock!(stock);
                     Scaffold.of(context).openEndDrawer();
                   },
                   child: Padding(

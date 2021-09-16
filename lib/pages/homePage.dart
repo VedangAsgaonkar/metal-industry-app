@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   double _offsetY = 100;
   ExpandedState _expandedState = ExpandedState.compact;
   String stockName = "";
+  late Stock curr_stock = Stock.getAll()[0];
   List<double> x = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   List<double> y = [3,1,5,6,5,3,2,5,8,10,13,14,16,24,12,11,10,18,19,20];
   int num_disp = 20;
@@ -90,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        stockName,
+                        curr_stock.metal,
                         style: TextStyle(
                             color: Colors.grey[50],
                             fontSize: 24,
@@ -111,11 +112,11 @@ class _HomePageState extends State<HomePage> {
                                   dotData: FlDotData(
                                     show: false,
                                   ),
-                                  spots: getDataFlList(x.sublist(x.length-num_disp), y.sublist(y.length -num_disp)),
-                                  colors: lineColors(y.sublist(y.length -num_disp)),
+                                  spots: getDataFlList(curr_stock.time_list.sublist(curr_stock.time_list.length-num_disp),curr_stock.price_list.sublist(curr_stock.price_list.length -num_disp)),
+                                  colors: lineColors(curr_stock.price_list.sublist(curr_stock.price_list.length -num_disp)),
                                   belowBarData: BarAreaData(
                                     show: true,
-                                    colors: graphColors(y.sublist(y.length -num_disp)),
+                                    colors: graphColors(curr_stock.price_list.sublist(curr_stock.price_list.length -num_disp)),
                                   ),
                                 ),
                               ],
@@ -225,23 +226,15 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     SizedBox(
-                      height: 10.0,
-                    ),
-                    Text("December 3",
-                        style: TextStyle(
-                            color: Colors.grey[500],
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(
-                      height: 10.0,
+                      height: 40.0,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height - 250,
+                      height: MediaQuery.of(context).size.height - 260,
                       child: StockList(
                         currentLocation,
                         (stock) {
                           setState(() {
-                            stockName = stock;
+                            curr_stock = stock;
                           });
                         },
                       ),
