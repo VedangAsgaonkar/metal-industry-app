@@ -94,7 +94,7 @@ class _StockListState extends State<StockList> {
               child: Text(
                 "Metal",
                 style: TextStyle(
-                    color: Colors.grey[500],
+                    color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
@@ -164,6 +164,10 @@ class _StockListState extends State<StockList> {
                   fontWeight: FontWeight.bold),
             ),
           ],
+        ),
+        Divider(
+          height: 5.0,
+          color: Colors.white,
         ),
         SizedBox(
           height: 15.0,
@@ -274,26 +278,91 @@ class _StockListState extends State<StockList> {
   _buildExpandableContent(Stock stock, BuildContext context, void Function(String)? setStock) {
     List<Widget> widgets = <Widget>[];
     widgets.add(
-      GestureDetector(
-        onTap: () {
-          setStock!(stock.metal);
-          Scaffold.of(context).openEndDrawer();
-        },
-        child: Container(
-          width: double.infinity,
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.grey[800],
-            borderRadius: BorderRadius.all((Radius.circular(20.0))),
-          ),
-          child: Text(stock.metal,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500)),
+      Container(
+        width: double.infinity,
+        height: 200,
+        padding: EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[850],
+          borderRadius: BorderRadius.all((Radius.circular(20.0))),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 20.0,
+                ),
+                Text(stock.metal,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35,
+                        fontWeight: FontWeight.w500)),
+                GestureDetector(
+                  onTap: () {
+                    setStock!(stock.metal);
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Icon(
+                      Icons.auto_graph,
+                      size: 35,
+                      color: Colors.tealAccent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  separatorBuilder: (context, index) {
+                    return Divider(color: Colors.white);
+                  },
+                  itemCount: stock.variety_cost.length,
+                  itemBuilder: (context, index) {
+
+                    return ListTileTheme(
+                      contentPadding: EdgeInsets.all(0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                          title: Text(
+                              stock.variety_name[index],
+                              style: TextStyle(
+                                color: Colors.grey[50],
+                                fontSize: 20.0,
+                              ),
+                          ),
+                          trailing: Text(
+                            stock.variety_cost[index].toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ],
         ),
       ),
     );
     return widgets;
   }
 }
+
+

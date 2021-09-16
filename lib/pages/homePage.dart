@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         stockName,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.grey[50],
                             fontSize: 24,
                             fontWeight: FontWeight.w500),
                       ),
@@ -124,33 +124,34 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       CupertinoSlidingSegmentedControl<int>(
+                        backgroundColor: Colors.grey[700]!,
                         thumbColor: Colors.white,
                         children: <int,Widget>{
                           5: Text(
                             '5',
                             style: TextStyle(
-                              color: Colors.grey[600],
+                              color: Colors.grey[900],
                               fontSize: 22.0
                             ),
                           ),
                           10: Text(
                             '10',
                             style: TextStyle(
-                                color: Colors.grey[600],
+                                color: Colors.grey[900],
                                 fontSize: 22.0
                             ),
                           ),
                           15: Text(
                             '15',
                             style: TextStyle(
-                                color: Colors.grey[600],
+                                color: Colors.grey[900],
                                 fontSize: 22.0
                             ),
                           ),
                           20: Text(
                             '20',
                             style: TextStyle(
-                                color: Colors.grey[600],
+                                color: Colors.grey[900],
                                 fontSize: 22.0
                             ),
                           ),
@@ -224,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     SizedBox(
-                      height: 30.0,
+                      height: 10.0,
                     ),
                     Text("December 3",
                         style: TextStyle(
@@ -235,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                       height: 10.0,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height - 310,
+                      height: MediaQuery.of(context).size.height - 250,
                       child: StockList(
                         currentLocation,
                         (stock) {
