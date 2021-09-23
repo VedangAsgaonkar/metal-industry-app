@@ -50,9 +50,9 @@ class Stock {
     List<Stock> stocks = <Stock>[];
     stocks.add(Stock("Lead", "Pb", 258, 100, 50, 100, 1, 2, 3, ["Raw", "Galena"], [75.0, 80.0] , [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], [3,1,5,6,5,3,2,5,8,10,13,14,16,24,12,11,10,18,19,20]));
     stocks.add(Stock("Copper", "Cu", 800, 200, 50, 10000, 1, 2, 3 ,["Armature", "Rod", "elemental" , "brass"], [100.0,200.0,300.0,400.0] , [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], [3,1,5,6,5,3,2,5,8,10,13,14,16,24,12,11,10,9,8,6]));
-    stocks.add(Stock("General Electronic", "GE", 56.00, 10, 50, 10000, 1, 2, 3 ,[], [], [] , [] ));
-    stocks.add(Stock("Home Depot", "HE", 10, 178, 50, 10000, 1, 2, 3, [], [], [] , []));
-    stocks.add(Stock("Evergreen Solar", "EVR", 10, 9.0, 50, 10000, 1, 2, 3 ,[], [], [] , []));
+    stocks.add(Stock("Aluminium", "Al", 56.00, 10, 50, 10000, 1, 2, 3 ,[], [], [] , [] ));
+    stocks.add(Stock("Zinc", "Zn", 10, 178, 50, 10000, 1, 2, 3, [], [], [] , []));
+    stocks.add(Stock("Nickel", "Ni", 10, 9.0, 50, 10000, 1, 2, 3 ,[], [], [] , []));
     stocks.add(Stock("Facebook", "FB", 10, 200, 50, 10000, 1, 2, 3 ,[], [], [] , []));
     stocks.add(Stock("Samsung", "SAM", 10, 134, 50, 10000, 1, 2, 3 ,[], [], [] , []));
     stocks.add(Stock("Snapchat", "SNAP", 10, 45, 50, 10000, 1, 2, 3 ,[], [], [] , []));
