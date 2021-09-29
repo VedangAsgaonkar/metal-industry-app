@@ -188,47 +188,39 @@ class _HomePageState extends State<HomePage> {
                           physics: BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Container(
-                                width: 150.0,
-                                height: 150.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[800],
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            GraphTile(
+                              child: Text(
+                                'LME',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Container(
-                                width: 150.0,
-                                height: 150.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[800],
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            GraphTile(
+                              child: Text(
+                                'Shaizi',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Container(
-                                width: 150.0,
-                                height: 150.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[800],
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            GraphTile(
+                              child: Text(
+                                'MCX',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Container(
-                                width: 150.0,
-                                height: 150.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[800],
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            GraphTile(
+                              child: Text(
+                                'CC',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
                                 ),
                               ),
                             ),
@@ -341,6 +333,27 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class GraphTile extends StatelessWidget {
+  final Widget child;
+  GraphTile({required this.child});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5.0),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+        child: child,
+        width: 150.0,
+        height: 150.0,
+        decoration: BoxDecoration(
+          color: Colors.grey[800],
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+      ),
+    );
+  }
+}
+
 class LeftMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -395,7 +408,9 @@ class LeftMenu extends StatelessWidget {
                       color: Colors.white,
                     ),
                     title: 'Explore',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, 'explore');
+                    },
                   ),
                   LeftMenuTile(
                     icon: Icon(
