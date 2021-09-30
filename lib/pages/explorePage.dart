@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/widgets.dart';
-import 'package:stockclone/pages/detailedPage.dart';
+import 'package:stockclone/pages/DetailedPage.dart';
 
 class ExplorePage extends StatefulWidget {
   @override
@@ -85,16 +85,16 @@ class _ExplorePageState extends State<ExplorePage> {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return detailedPage();
+                                  return DetailedPage(companyName: "Delhi Lead Pvt. Ltd.",);
                                 }));
                               },
                               child: Container(
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.height,
-                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 80),
+                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 40),
                                   padding: EdgeInsets.all(15.0),
                                   decoration: BoxDecoration(
-                                    color: Colors.amber[200],
+                                    color: Colors.grey[700],
                                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
                                   ),
                                   child: Column(
@@ -111,7 +111,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                       Text(
                                         'Delhi Lead Pvt. Ltd.',
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontSize: 30.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -119,7 +119,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                       Text(
                                         'High quality lead',
                                         style: TextStyle(
-                                          color: Colors.grey[800],
+                                          color: Colors.grey[400],
                                           fontSize: 25.0,
                                           fontWeight: FontWeight.w600,
                                         ),
